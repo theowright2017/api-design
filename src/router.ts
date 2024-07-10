@@ -5,6 +5,7 @@ const router = Router();
 
 /**
  * Product
+ * - log in with "secret" - get JWT token and input in bearer to get product
  */
 router.get("/product", (req, res) => {
   res.json({ message: "product" });
