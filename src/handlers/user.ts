@@ -1,19 +1,9 @@
+import { nextTick } from "process";
 import prisma from "../db";
 import { hashPassword, createJWT, comparePasswords } from "../modules/auth";
 
-export const createNewUser = async (req, res) => {
-    const existingUser = await prisma.user.findUnique({
-		where: {
-			username: req.body.username,
-		},
-	});
-
-    if (existingUser) {
-        res.status(400)
-        res.send('username not available')
-        return
-    }
-
+export const createNewUser = async (req, res, next) => {
+	try {
 
 	const user = await prisma.user.create({
 		data: {
@@ -24,6 +14,12 @@ export const createNewUser = async (req, res) => {
 
 	const token = createJWT(user);
 	res.json({ token });
+
+} catch(err) {
+	// check prisma error to be more specific
+	err.type = 'input'
+	next(err)
+}
 };
 
 export const signIn = async (req, res) => {
@@ -32,7 +28,7 @@ export const signIn = async (req, res) => {
 			username: req.body.username,
 		},
 	});
-    
+
 	const matchesPassword = await comparePasswords(
 		req.body.password,
 		user.password

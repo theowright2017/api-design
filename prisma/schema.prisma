@@ -19,7 +19,7 @@ model User {
   password  String
   createdAt DateTime @default(now())
 
-  Product Product[]
+  products Product[]
 }
 
 model Product {
@@ -44,13 +44,13 @@ enum UPDATE_STATUS {
 model Update {
    id        String   @id @default(uuid())
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
 
   title String
   body String
   status UPDATE_STATUS @default(IN_PROGRESS)
   version String?
-  asset String
+  asset String?
 
   productId String
   product Product @relation(fields: [productId], references: [id])
