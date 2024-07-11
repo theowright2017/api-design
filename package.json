@@ -6,7 +6,9 @@
     "test": "jest",
     "dev": "nodemon src/index.ts",
     "db": "npx prisma studio",
-    "prod": "STAGE=production npm run dev"
+    "prod": "STAGE=production npm run dev",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",
