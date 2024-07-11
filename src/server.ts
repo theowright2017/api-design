@@ -41,11 +41,9 @@ app.use((req, res, next) => {
 
 /* ---  end of Middleware --- */
 
-// app.get("/", (req, res, next) => {
-// 	setTimeout(() => {
-// 		next(new Error("hello"));
-// 	}, 1);
-// });
+app.get("/", (req, res, next) => {
+	res.json({message: 'hello'})
+});
 
 /**
  * mount to methods in ./router
